@@ -5,9 +5,9 @@
 
 ## Students
 
-  Berkane Ibrahim<br />
-  Begoug Mahi<br />
-  Adrao Nassim<br />
+  - Berkane Ibrahim<br />
+  - Begoug Mahi<br />
+  - Adrao Nassim<br />
 
 
 ## TP1 - Programmation Par Contraintes
