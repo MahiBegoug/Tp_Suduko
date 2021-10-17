@@ -12,6 +12,10 @@ import org.apache.commons.cli.ParseException;
 import org.chocosolver.solver.Model;
 import org.chocosolver.solver.Solution;
 import org.chocosolver.solver.variables.IntVar;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.chocosolver.solver.search.strategy.Search.minDomLBSearch;
 import static org.chocosolver.util.tools.ArrayUtils.append;
 
@@ -48,6 +52,8 @@ public class HardSudoku {
 		s = (int) Math.sqrt(n);
 
 		new HardSudoku().solve();
+
+		new HardSudoku().findAllSolutions();
 	}
 
 	public void solve() {
@@ -175,9 +181,24 @@ public class HardSudoku {
 		model.getSolver().setSearch(minDomLBSearch(append(rows)));
 
 	}
-	public void findSolution(){
-		Solution a = model.getSolver().findSolution();
-		System.out.println(a.toString());
+	public void findAllSolutions(){
+		buildModel();
+		model.getSolver().solve();
+		List<Solution> a;
+		a = model.getSolver().findAllSolutions();
+
+
+		StringBuilder st = new StringBuilder(String.format("Sudoku -- %s\n", instance, " X ", instance));
+		st.append("\t");
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				st.append(rows[i][j]).append("\t\t\t");
+			}
+			st.append("\n\t");
+		}
+
+
+		System.out.println(a.size());
 	}
 
 }

@@ -37,7 +37,7 @@ public class GTSudoku {
 			formatter.printHelp("sudoku", options, true);
 			System.exit(0);
 		}
-		instance = 4;
+		instance = 9;
 		// Check arguments and options
 		for (Option opt : line.getOptions()) {
 			checkOption(line, opt.getLongOpt());
@@ -46,7 +46,7 @@ public class GTSudoku {
 		n = instance;
 		s = (int) Math.sqrt(n);
 
-		new Sudoku().solve();
+		new GTSudoku().solve();
 	}
 
 	public void solve() {
@@ -101,12 +101,218 @@ public class GTSudoku {
 		
 		// --------------------------------------
 		// TODO: add constraints here
-		rows[0][0].lt(rows[0][1]).post();
-		//rows[0][0].lt()
-		
-		
-		// --------------------------------------
 
+		//BLOC 1
+		rows[0][0].lt(rows[0][1]).post();
+		rows[0][0].lt(rows[1][0]).post();
+		rows[0][1].lt(rows[1][1]).post();
+		rows[0][1].gt(rows[0][2]).post();
+		rows[0][2].lt(rows[1][2]).post();
+		// ---
+
+		// ---
+		rows[1][0].lt(rows[1][1]).post();
+		rows[1][0].gt(rows[2][0]).post();
+		rows[1][1].lt(rows[1][2]).post();
+		rows[1][1].lt(rows[1][2]).post();
+		rows[1][2].gt(rows[2][2]).post();
+		// ---
+
+		// ---
+		rows[2][0].gt(rows[2][1]).post();
+		rows[2][1].lt(rows[2][2]).post();
+		// ---
+
+		
+		//BLOC 2
+		// ---
+		rows[0][3].gt(rows[1][3]).post();
+		rows[0][3].lt(rows[0][4]).post();
+		rows[0][4].gt(rows[1][4]).post();
+		rows[0][4].lt(rows[0][5]).post();
+		rows[0][5].lt(rows[1][5]).post();
+		// ---
+
+		// ---
+		rows[1][3].lt(rows[2][3]).post();
+		rows[1][3].lt(rows[1][4]).post();
+		rows[1][4].lt(rows[2][4]).post();
+		rows[1][4].lt(rows[1][5]).post();
+		rows[1][5].lt(rows[2][5]).post();
+		// ---
+
+		// ---
+		rows[2][3].gt(rows[2][4]).post();
+		rows[2][4].gt(rows[2][5]).post();
+		// ---
+
+		//BLOC 3
+		// ---
+		rows[0][6].gt(rows[1][6]).post();
+		rows[0][6].gt(rows[0][7]).post();
+		rows[0][7].gt(rows[1][7]).post();
+		rows[0][7].lt(rows[0][8]).post();
+		rows[0][8].gt(rows[1][8]).post();
+		// ---
+
+		// ---
+		rows[1][6].lt(rows[2][6]).post();
+		rows[1][6].lt(rows[1][7]).post();
+		rows[1][7].gt(rows[2][7]).post();
+		rows[1][7].lt(rows[1][8]).post();
+		rows[1][8].gt(rows[2][8]).post();
+		// ---
+
+		// ---
+		rows[2][6].gt(rows[2][7]).post();
+		rows[2][7].lt(rows[2][8]).post();
+		// ---
+
+		//BLOC 4
+		// ----
+		rows[3][0].gt(rows[3][1]).post();
+		rows[3][1].gt(rows[3][2]).post();
+		// ----
+
+		// ----
+		rows[3][0].gt(rows[4][0]).post();
+		rows[3][1].lt(rows[4][1]).post();
+		rows[3][2].lt(rows[4][2]).post();
+		// ----
+
+		// ----
+		rows[4][0].lt(rows[4][1]).post();
+		rows[4][1].gt(rows[4][2]).post();
+		// ----
+
+		// ----
+		rows[4][0].lt(rows[5][0]).post();
+		rows[4][1].gt(rows[5][1]).post();
+		rows[4][2].lt(rows[5][2]).post();
+		// ----
+
+		// ----
+		rows[5][0].lt(rows[5][1]).post();
+		rows[5][1].lt(rows[5][2]).post();
+		// ----
+		// #############
+
+		//BLOC 5
+		// ----
+		rows[3][3].lt(rows[3][4]).post();
+		rows[3][4].gt(rows[3][5]).post();
+		// ----
+
+		// ----
+		rows[3][3].lt(rows[4][3]).post();
+		rows[3][4].gt(rows[4][4]).post();
+		rows[3][5].gt(rows[4][5]).post();
+		// ----
+
+		// ----
+		rows[4][3].gt(rows[4][4]).post();
+		rows[4][4].gt(rows[4][5]).post();
+		// ----
+
+		// ----
+		rows[4][3].gt(rows[5][3]).post();
+		rows[4][4].lt(rows[5][4]).post();
+		rows[4][5].lt(rows[5][5]).post();
+		// ----
+
+		// ----
+		rows[5][3].lt(rows[5][4]).post();
+		rows[5][4].gt(rows[5][5]).post();
+		// ----
+		// #############
+
+		//BLOC 6
+		// ----
+		rows[3][6].lt(rows[3][7]).post();
+		rows[3][7].lt(rows[3][8]).post();
+		// ----
+
+		// ----
+		rows[3][6].lt(rows[4][6]).post();
+		rows[3][7].lt(rows[4][7]).post();
+		rows[3][8].gt(rows[4][8]).post();
+		// ----
+
+		// ----
+		rows[4][6].gt(rows[4][7]).post();
+		rows[4][7].gt(rows[4][8]).post();
+		// ----
+
+		// ----
+		rows[4][6].gt(rows[5][6]).post();
+		rows[4][7].lt(rows[5][7]).post();
+		rows[4][8].lt(rows[5][8]).post();
+		// ----
+
+		// ----
+		rows[5][6].lt(rows[5][7]).post();
+		rows[5][7].gt(rows[5][8]).post();
+		// ----
+
+
+		//BLOC 7
+		// ----
+		rows[6][0].gt(rows[6][1]).post();
+		rows[6][1].lt(rows[6][2]).post();
+
+		rows[7][0].gt(rows[6][0]).post();
+		rows[7][1].gt(rows[6][1]).post();
+		rows[7][2].gt(rows[6][2]).post();
+
+		rows[7][0].gt(rows[7][1]).post();
+		rows[7][1].gt(rows[7][2]).post();
+
+		rows[7][0].gt(rows[8][0]).post();
+		rows[7][1].gt(rows[8][1]).post();
+		rows[7][2].gt(rows[8][2]).post();
+
+		rows[8][0].gt(rows[8][1]).post();
+		rows[8][1].lt(rows[8][2]).post();
+
+
+		//BLOC 8
+		rows[6][3].gt(rows[6][4]).post();
+		rows[6][4].gt(rows[6][5]).post();
+
+		rows[7][3].gt(rows[6][3]).post();
+		rows[7][4].lt(rows[6][4]).post();
+		rows[7][5].gt(rows[6][5]).post();
+
+		rows[7][3].gt(rows[7][4]).post();
+		rows[7][4].gt(rows[7][5]).post();
+
+		rows[7][3].gt(rows[8][3]).post();
+		rows[7][4].gt(rows[8][4]).post();
+		rows[7][5].lt(rows[8][5]).post();
+
+		rows[8][3].gt(rows[8][4]).post();
+		rows[8][4].lt(rows[8][5]).post();
+
+		
+		//BLOC 9
+		rows[6][6].lt(rows[6][7]).post();
+		rows[6][7].lt(rows[6][8]).post();
+
+		rows[7][6].lt(rows[6][6]).post();
+		rows[7][7].lt(rows[6][7]).post();
+		rows[7][8].lt(rows[6][8]).post();
+
+		rows[7][6].gt(rows[7][7]).post();
+		rows[7][7].gt(rows[7][8]).post();
+
+		rows[7][6].lt(rows[8][6]).post();
+		rows[7][7].lt(rows[8][7]).post();
+		rows[7][8].lt(rows[8][8]).post();
+
+		rows[8][6].gt(rows[8][7]).post();
+		rows[8][7].gt(rows[8][8]).post();
+
+		// --------------------------------------
 
 	}
 
