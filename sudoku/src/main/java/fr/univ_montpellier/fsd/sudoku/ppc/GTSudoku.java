@@ -102,7 +102,7 @@ public class GTSudoku {
 		// --------------------------------------
 		// TODO: add constraints here
 		rows[0][0].lt(rows[0][1]).post();
-		rows[0][0].lt()
+		//rows[0][0].lt()
 		
 		
 		// --------------------------------------

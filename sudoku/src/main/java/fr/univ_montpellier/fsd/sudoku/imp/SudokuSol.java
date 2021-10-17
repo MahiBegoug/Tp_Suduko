@@ -113,11 +113,11 @@ public class SudokuSol {
 		// the last recursive call
 		// and we have just to print the solution
 
-		/////////////////////////////////////////////// 
-		// MAIN LOOP: try if a value is possible for grid[row][col] 
+		///////////////////////////////////////////////
+		// MAIN LOOP: try if a value is possible for grid[row][col]
 		// if yes, we make a recursive call for the next cell to fill
-		// Otherwise, no value is possible for that cell, we reset it to zero and we return false 
-	
+		// Otherwise, no value is possible for that cell, we reset it to zero and we return false
+
 		return false;
 	}
 

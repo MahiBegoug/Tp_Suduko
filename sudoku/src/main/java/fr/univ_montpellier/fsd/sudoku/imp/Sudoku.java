@@ -1,8 +1,7 @@
 package fr.univ_montpellier.fsd.sudoku.imp;
 
-import java.time.Duration;
-import java.time.Instant;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class Sudoku {
 
@@ -40,9 +39,6 @@ public class Sudoku {
 	}
 
 	private boolean isNotInRow(int row, int col ,int number) {
-		/*if (col == n-1) {
-			return true;
-		}*/
 		for (int i = 0; i < n ; i++) {
 			if ((grid[row][i] == number ) && ( i!= col)) return false;
 		}
@@ -50,9 +46,6 @@ public class Sudoku {
 	}
 
 	private boolean isNotInCol(int row,int col, int number) {
-		/*if(row == n-1) {
-			return true;
-		}*/
 		for (int j = 0; j < n ; j++) {
 			if ((grid[j][col] == number) && ( j!= row)) return false;
 		}
@@ -70,8 +63,6 @@ public class Sudoku {
 	}
 
 	private boolean isOk(int row, int col, int number) {
-		//printSudoku();
-		//System.out.println("and "+Arrays.deepToString(grid));
 		return isNotInRow(row, col, number) && isNotInCol(row,col, number) && isNotInBox(row, col,number) ;
 	}
 
@@ -107,19 +98,7 @@ public class Sudoku {
 	 */
 
 	public void generateSolution() {
-
-		this.grid = new int[][]{
-				{1, 1, 2, 3, 4, 5, 6, 7, 8},
-				{3, 4, 4, 1, 6, 7, 2, 5, 9},
-				{5, 6, 7, 2, 8, 9, 1, 3, 4},
-				{1, 2, 3, 4, 5, 4, 7, 8, 6},
-				{4, 5, 6, 7, 1, 1, 3, 9, 2},
-				{7, 8, 9, 6, 2, 3, 4, 1, 5},
-				{2, 3, 1, 5, 9, 6, 8, 4, 7},
-				{6, 4, 5, 8, 7, 3, 9, 2, 1},
-				{8, 9, 7, 4, 1, 2, 5, 6, 3}
-		};
-		/*ArrayList<Integer> numbers = new ArrayList<>();
+		ArrayList<Integer> numbers = new ArrayList<>();
 		for (int ind = 1; ind <=n; ind++) numbers.add(ind);
 		for (int i=0; i<n; i++){
 			//Random random = new Random();
@@ -127,8 +106,7 @@ public class Sudoku {
 			for (int j = 0; j< n; j++){
 				grid[i][j]= numbers.get(j);
 			}
-		}*/
-
+		}
 	}
 
 	/*
@@ -136,14 +114,11 @@ public class Sudoku {
 	 * 
 	 */
 	public boolean findSolution() {
-		int cpt = 1;
 		while (true) {
 			generateSolution();
-			//System.out.println(Arrays.deepToString(grid));
 			if (solutionChecker()) {
 				return true;
 			}
-			cpt ++;
 		}
 	}
 
@@ -152,26 +127,25 @@ public class Sudoku {
 	 * @return
 	 */
 	int cpt = 0;
-	public boolean findAllSolution()
+	public boolean findAllSolutions()
 	{
-
 		for(int r = 0; r < n; r++){
 			for(int c = 0; c < n; c++){
 				if(grid[r][c] == 0){
 					// check for numbers in range
 					for(int num = 1; num <= n; num++){
-						System.out.println(num + " and "+ isOk(r,c,num));
 						if(isOk(r,c,num)){
 							// set number if it passes all checks
 							grid[r][c] = num;
-							printSudoku();
+
 							// backtrack if we run into constraints, other wise return true to finish sudoku
-							if(findAllSolution()){
+							if(findAllSolutions()){
 								//System.out.println(Arrays.deepToString(grid));
 								cpt++;
 								grid[r][c] = grid[r][c] + 1;
 								if (grid[r][c] > num) grid[r][c] = 0;
 								System.out.println("count = "+cpt);
+								printSudoku();
 								//return true;
 							} else {
 								// reset the cell to 0 and backtrack
@@ -188,8 +162,22 @@ public class Sudoku {
 
 	}
 
-	public static void main(String args[]) {
-		new Sudoku(4).findSolution();
+	public void resetGrid(){
+		for (int i=0;i<n;i++){
+			for (int j =0;j<n;j++){
+				grid[i][j] = 0;
+			}
+		}
+	}
 
+	public static void main(String args[]) {
+		Sudoku sudoku = new Sudoku(4);
+		sudoku.findSolution();
+		System.out.println("Solution");
+		sudoku.printSudoku();
+
+		sudoku.resetGrid();
+		System.out.println("All Solutions");
+		sudoku.findAllSolutions();
 	}
 }
