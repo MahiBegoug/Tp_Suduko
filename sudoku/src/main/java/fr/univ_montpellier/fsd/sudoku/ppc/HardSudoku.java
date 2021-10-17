@@ -10,6 +10,7 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
 import org.chocosolver.solver.Model;
+import org.chocosolver.solver.Solution;
 import org.chocosolver.solver.variables.IntVar;
 import static org.chocosolver.solver.search.strategy.Search.minDomLBSearch;
 import static org.chocosolver.util.tools.ArrayUtils.append;
@@ -37,7 +38,7 @@ public class HardSudoku {
 			formatter.printHelp("sudoku", options, true);
 			System.exit(0);
 		}
-		instance = 4;
+		instance = 9;
 		// Check arguments and options
 		for (Option opt : line.getOptions()) {
 			checkOption(line, opt.getLongOpt());
@@ -46,7 +47,7 @@ public class HardSudoku {
 		n = instance;
 		s = (int) Math.sqrt(n);
 
-		new Sudoku().solve();
+		new HardSudoku().solve();
 	}
 
 	public void solve() {
@@ -54,6 +55,8 @@ public class HardSudoku {
 		buildModel();
 		model.getSolver().showStatistics();
 		model.getSolver().solve();
+		System.out.println("here is "+model.getSolver().findSolution().toString());
+
 
 		StringBuilder st = new StringBuilder(String.format("Sudoku -- %s\n", instance, " X ", instance));
 		st.append("\t");
@@ -101,6 +104,27 @@ public class HardSudoku {
 
 		// --------------------------------------
 		// TODO: add constraints here
+		rows[0][0].eq(8).post();
+		rows[1][2].eq(3).post();
+		rows[1][3].eq(6).post();
+		rows[2][1].eq(7).post();
+		rows[2][4].eq(9).post();
+		rows[2][6].eq(2).post();
+		rows[3][2].eq(5).post();
+		rows[3][5].eq(7).post();
+		rows[4][4].eq(4).post();
+		rows[4][5].eq(5).post();
+		rows[4][6].eq(7).post();
+		rows[5][3].eq(1).post();
+		rows[5][7].eq(3).post();
+		rows[6][2].eq(1).post();
+		rows[6][7].eq(6).post();
+		rows[6][8].eq(8).post();
+		rows[7][2].eq(8).post();
+		rows[7][3].eq(5).post();
+		rows[7][7].eq(1).post();
+		rows[8][1].eq(9).post();
+		rows[8][6].eq(4).post();
 
 		
 		
@@ -150,6 +174,10 @@ public class HardSudoku {
 	public void configureSearch() {
 		model.getSolver().setSearch(minDomLBSearch(append(rows)));
 
+	}
+	public void findSolution(){
+		Solution a = model.getSolver().findSolution();
+		System.out.println(a.toString());
 	}
 
 }

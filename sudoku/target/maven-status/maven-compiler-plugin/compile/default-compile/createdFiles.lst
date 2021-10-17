@@ -1,0 +1,8 @@
+fr\univ_montpellier\fsd\sudoku\App.class
+fr\univ_montpellier\fsd\sudoku\ppc\HardSudoku.class
+fr\univ_montpellier\fsd\sudoku\imp\SudokuSol.class
+fr\univ_montpellier\fsd\sudoku\ppc\Sudoku.class
+fr\univ_montpellier\fsd\sudoku\ppc\VeryHardSudoku.class
+fr\univ_montpellier\fsd\sudoku\imp\Sudoku.class
+fr\univ_montpellier\fsd\sudoku\ppc\GTSudoku.class
+fr\univ_montpellier\fsd\sudoku\ppc\HelloWorld.class
